@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Vending Machine - Progetto di Gruppo</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 900px;
+            margin: 0px;
+            font-family: Arial, sans-serif;
+        }
+
+        .vending-machine {
+            display: flex;
+            width: 600px;
+            height: 800px;
+            background-color: #e74c3c;
+            padding: 30px;
+            border-radius: 15px;
+            border: 5px solid #333333;
+            box-shadow: 20px 20px 0px #c0392b;
+        }
+
+        .pancia {
+            width: 200px;
+            height: 730px;
+            background-color: lightslategray;
+            padding: 20px;
+            border: 10px solid black;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .griglia-prodotti {
+            display: grid;
+            grid-template-columns: 180px;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .prodotto {
+            border: 3px solid black;
+            width: 165px;
+            height: 95px;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 10px;
+            text-align: center;
+            border-radius: 25px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tastierino {
+            width: 200px;
+            margin-left: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .display-digitale {
+            width: 310px;
+            height: 60px;
+            background-color: #111111;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            border: 3px solid #555555;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        input {
+            width: 303px;
+            height: 45px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 315px;
+            height: 50px;
+            margin-bottom: 20px;
+            background-color: #f1c40f;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #vano-ritiro {
+            width: 180px;
+            height: 120px;
+            margin-top: auto;
+            background-color: #111111;
+            border: 5px inset #444444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .log-operazioni {
+            width: 290px;
+            height: 250px;
+            background-color: #111111;
+            color: white;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 3px solid #555555;
+            margin-bottom: 20px;
+            overflow-y: scroll;
+            text-align: center;
+            line-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="vending-machine">
+        <div class="pancia">
+            <h2 style="color:white; text-align:center; margin:0px;">DISTRUBUTORE</h2>
+            <div class="griglia-prodotti">
+                <div class="prodotto">A1: Acqua<br>1.00€</div>
+                <div class="prodotto">A2: Snack<br>2.00€</div>
+                <div class="prodotto">A3: Caffè<br>1.50€</div>
+                <div class="prodotto">A4: Succo<br>2.50€</div>
+            </div>
+            <br>
+            <div id="vano-ritiro">RITIRA QUI</div>
+        </div>
+
+        <div class="tastierino">
+            <div class="display-digitale">
+                € <span id="livello">0</span>.00
+            </div>
+
+            <button id="aggiungi-btn">INSERISCI 1€</button>
+            
+            <input type="text" id="input-nome" placeholder="inserisci codice">
+            <button id="bottone-saluta" style="background-color: blue; color: white;">EROGA</button>
+            <button id="bottone-resto" style="background-color: green; color: white;">$RESTO$</button>
+
+            <div class="log-operazioni" id="output-tabellina">
+                SISTEMA PRONTO...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let credito = 0; 
+        const displayCredito = document.getElementById('livello');
+        const logOperazioni = document.getElementById('output-tabellina');
+        const vanoRitiro = document.getElementById('vano-ritiro');
+
+        // Aggiungi 1€
+        document.getElementById('aggiungi-btn').addEventListener('click', function() {
+            credito = credito + 1;
+            displayCredito.innerHTML = credito;
+            logOperazioni.innerHTML = "Hai inserito 1€<br>" + logOperazioni.innerHTML;
+        });
+
+        // Erogazione
+        document.getElementById('bottone-saluta').addEventListener('click', function() {
+            let codice = document.getElementById('input-nome').value.toUpperCase();
+            let prezzo = 0;
+
+            if (codice === "A1") { prezzo = 1; }
+            else if (codice === "A2") { prezzo = 2; }
+            else if (codice === "A3") { prezzo = 1.5; }
+            else if (codice === "A4") { prezzo = 2.5; }
+            else {
+                logOperazioni.innerHTML = "CODICE ERRATO!<br>" + logOperazioni.innerHTML;
+                return;
+            }
+
+            if (credito >= prezzo) {
+                credito = credito - prezzo;
+                displayCredito.innerHTML = credito;
+                vanoRitiro.innerHTML = "EROGATO: " + codice;
+                vanoRitiro.style.backgroundColor = "#27ae60";
+                logOperazioni.innerHTML = "Acquistato " + codice + " (-" + prezzo + "€)<br>" + logOperazioni.innerHTML;
+            } else {
+                logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
+                vanoRitiro.innerHTML = "CREDITO BASSO";
+                vanoRitiro.style.backgroundColor = "#c0392b";
+            }
+            
+            document.getElementById('input-nome').value = "";
+        });
+
+        // Resto
+        document.getElementById('bottone-resto').addEventListener('click', function() {
+            if (credito > 0) {
+                logOperazioni.innerHTML = "Erogazione resto<br>" + logOperazioni.innerHTML;
+                displayCredito.innerHTML = 0;
+                credito = 0;
+                vanoRitiro.innerHTML = "RESTO";
+                vanoRitiro.style.backgroundColor = "#27ae60";
+                
+            } else {
+                vanoRitiro.innerHTML = "CREDITO ZERO";
+                vanoRitiro.style.backgroundColor = "#c0392b";
+            }
+        });
+    </script>
+</body>
+</html>
