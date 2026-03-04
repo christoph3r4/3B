@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Vending Machine - Progetto di Gruppo</title>
-    <style>
+    <style> 
         body {
             text-align: center;
             background-color: #2c3e50;
@@ -101,7 +101,7 @@
             font-size: 14px;
         }
 
-        #vano-ritiro {
+        #vano-ritiro1 {
             width: 180px;
             height: 120px;
             margin-top: auto;
@@ -143,15 +143,17 @@
                 <div class="prodotto">A4: Succo<br>2.50€</div>
             </div>
             <br>
-            <div id="vano-ritiro">RITIRA QUI</div>
+            <div id="vano-ritiro1">RITIRA QUI</div>
         </div>
 
         <div class="tastierino">
             <div class="display-digitale">
-                € <span id="livello">0</span>.00
+                € <span id="livello">0.00</span>
             </div>
 
-            <button id="aggiungi-btn">INSERISCI 1€</button>
+            <button id="aggiungi-btn1">INSERISCI 1€</button>
+
+            <button id="aggiungi-btn2" style="background-color: #f1c40f; color: black;">INSERISCI 0.50€</button>
             
             <input type="text" id="input-nome" placeholder="inserisci codice">
             <button id="bottone-saluta" style="background-color: blue; color: white;">EROGA</button>
@@ -164,19 +166,31 @@
     </div>
 
     <script>
-        let credito = 0; 
+        let credito = 0;
         const displayCredito = document.getElementById('livello');
         const logOperazioni = document.getElementById('output-tabellina');
-        const vanoRitiro = document.getElementById('vano-ritiro');
+        const vanoRitiro1 = document.getElementById('vano-ritiro1');
 
-        // Aggiungi 1€
-        document.getElementById('aggiungi-btn').addEventListener('click', function() {
-            credito = credito + 1;
-            displayCredito.innerHTML = credito;
+        
+        function aggiornaDisplay() {
+            displayCredito.innerHTML = (Math.round(credito * 100) / 100).toFixed(2);
+        }
+
+        // aggiungi 1€
+        document.getElementById('aggiungi-btn1').addEventListener('click', function() {
+            credito = Math.round((credito + 1) * 100) / 100;
+            aggiornaDisplay();
             logOperazioni.innerHTML = "Hai inserito 1€<br>" + logOperazioni.innerHTML;
         });
 
-        // Erogazione
+        // aggiungi 0.50€
+        document.getElementById('aggiungi-btn2').addEventListener('click', function() {
+            credito = Math.round((credito + 0.50) * 100) / 100;
+            aggiornaDisplay();
+            logOperazioni.innerHTML = "Hai inserito 0.50€<br>" + logOperazioni.innerHTML;
+        });
+
+        // erogazione
         document.getElementById('bottone-saluta').addEventListener('click', function() {
             let codice = document.getElementById('input-nome').value.toUpperCase();
             let prezzo = 0;
@@ -191,32 +205,46 @@
             }
 
             if (credito >= prezzo) {
-                credito = credito - prezzo;
-                displayCredito.innerHTML = credito;
-                vanoRitiro.innerHTML = "EROGATO: " + codice;
-                vanoRitiro.style.backgroundColor = "#27ae60";
-                logOperazioni.innerHTML = "Acquistato " + codice + " (-" + prezzo + "€)<br>" + logOperazioni.innerHTML;
+                credito = Math.round((credito - prezzo) * 100) / 100;
+                aggiornaDisplay();
+                vanoRitiro1.innerHTML = "EROGATO: " + codice;
+                vanoRitiro1.style.backgroundColor = "#0000ff";
+                logOperazioni.innerHTML = "Acquistato " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + logOperazioni.innerHTML;
             } else {
                 logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
-                vanoRitiro.innerHTML = "CREDITO BASSO";
-                vanoRitiro.style.backgroundColor = "#c0392b";
+                vanoRitiro1.innerHTML = "CREDITO BASSO";
+                vanoRitiro1.style.backgroundColor = "#c0392b";
             }
             
             document.getElementById('input-nome').value = "";
         });
 
-        // Resto
+        // per prelevare il resto o il prodotto dal vano di ritiro
+        document.getElementById('vano-ritiro1').addEventListener('mouseenter', function() {
+            if(vanoRitiro1.style.backgroundColor === 'blue' || vanoRitiro1.style.backgroundColor === 'green' || vanoRitiro1.style.backgroundColor === 'red') {
+                vanoRitiro1.innerHTML = "RITIRA QUI";
+                vanoRitiro1.style.backgroundColor = "#111111";
+            }
+        });
+
+        ''// riposta il vano allo stile iniziale 
+        document.getElementById('vano-ritiro1').addEventListener('mouseleave', function() {
+                vanoRitiro1.innerHTML = "RITIRA QUI";
+                vanoRitiro1.style.backgroundColor = "#111111";
+            
+        });''
+
+        // resto
         document.getElementById('bottone-resto').addEventListener('click', function() {
             if (credito > 0) {
                 logOperazioni.innerHTML = "Erogazione resto<br>" + logOperazioni.innerHTML;
-                displayCredito.innerHTML = 0;
                 credito = 0;
-                vanoRitiro.innerHTML = "RESTO";
-                vanoRitiro.style.backgroundColor = "#27ae60";
-                
+                aggiornaDisplay();
+                vanoRitiro1.innerHTML = "RESTO";
+                vanoRitiro1.style.backgroundColor = "#27ae60";
             } else {
-                vanoRitiro.innerHTML = "CREDITO ZERO";
-                vanoRitiro.style.backgroundColor = "#c0392b";
+                vanoRitiro1.innerHTML = "CREDITO ZERO";
+                vanoRitiro1.style.backgroundColor = "#c0392b";
             }
         });
     </script>
