@@ -207,12 +207,11 @@
             if (credito >= prezzo) {
                 credito = Math.round((credito - prezzo) * 100) / 100;
                 aggiornaDisplay();
-                vanoRitiro1.innerHTML = "RITIRO: " + codice;
+                vanoRitiro1.innerHTML = "RITIRA QUI: " + codice;
                 vanoRitiro1.style.backgroundColor = "#0000ff";
-                logOperazioni.innerHTML = "Acquistato " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + logOperazioni.innerHTML;
+                logOperazioni.innerHTML = "RITIRA QUI " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + logOperazioni.innerHTML;
             } else {
                 logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
-                vanoRitiro1.innerHTML = "CREDITO BASSO";
                 vanoRitiro1.style.backgroundColor = "#c0392b";
             }
             
@@ -222,7 +221,6 @@
         // per prelevare il resto o il prodotto dal vano di ritiro
         vanoRitiro1.addEventListener('mouseenter', function() {
             if(vanoRitiro1.style.backgroundColor !== '') {
-                vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#111111";
             }
         });
@@ -230,7 +228,6 @@
 
         // riposta il vano allo stile iniziale 
         document.getElementById('vano-ritiro1').addEventListener('mouseleave', function() {
-                vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#111111";
             
         });
@@ -244,7 +241,7 @@
                 vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#27ae60";
             } else {
-                vanoRitiro1.innerHTML = "CREDITO ZERO";
+                logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
                 vanoRitiro1.style.backgroundColor = "#c0392b";
             }
         });
