@@ -207,7 +207,7 @@
             if (credito >= prezzo) {
                 credito = Math.round((credito - prezzo) * 100) / 100;
                 aggiornaDisplay();
-                vanoRitiro1.innerHTML = "EROGATO: " + codice;
+                vanoRitiro1.innerHTML = "RITIRO: " + codice;
                 vanoRitiro1.style.backgroundColor = "#0000ff";
                 logOperazioni.innerHTML = "Acquistato " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + logOperazioni.innerHTML;
             } else {
@@ -241,7 +241,7 @@
                 logOperazioni.innerHTML = "Erogazione resto<br>" + logOperazioni.innerHTML;
                 credito = 0;
                 aggiornaDisplay();
-                vanoRitiro1.innerHTML = "RESTO";
+                vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#27ae60";
             } else {
                 vanoRitiro1.innerHTML = "CREDITO ZERO";
