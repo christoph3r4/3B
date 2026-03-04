@@ -221,6 +221,7 @@
         // per prelevare il resto o il prodotto dal vano di ritiro
         vanoRitiro1.addEventListener('mouseenter', function() {
             if(vanoRitiro1.style.backgroundColor !== '') {
+                vanoRitiro1.innerHTML = "RITIRA QUI:";
                 vanoRitiro1.style.backgroundColor = "#111111";
             }
         });
@@ -228,6 +229,7 @@
 
         // riposta il vano allo stile iniziale 
         document.getElementById('vano-ritiro1').addEventListener('mouseleave', function() {
+                vanoRitiro1.innerHTML = "RITIRA QUI:"; 
                 vanoRitiro1.style.backgroundColor = "#111111";
             
         });
