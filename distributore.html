@@ -171,26 +171,26 @@
         const logOperazioni = document.getElementById('output-tabellina');
         const vanoRitiro1 = document.getElementById('vano-ritiro1');
 
-        
+        // 🔹 Funzione per aggiornare il display in modo formattato
         function aggiornaDisplay() {
             displayCredito.innerHTML = (Math.round(credito * 100) / 100).toFixed(2);
         }
 
-        // aggiungi 1€
+        // Aggiungi 1€
         document.getElementById('aggiungi-btn1').addEventListener('click', function() {
             credito = Math.round((credito + 1) * 100) / 100;
             aggiornaDisplay();
             logOperazioni.innerHTML = "Hai inserito 1€<br>" + logOperazioni.innerHTML;
         });
 
-        // aggiungi 0.50€
+        // Aggiungi 0.50€
         document.getElementById('aggiungi-btn2').addEventListener('click', function() {
             credito = Math.round((credito + 0.50) * 100) / 100;
             aggiornaDisplay();
             logOperazioni.innerHTML = "Hai inserito 0.50€<br>" + logOperazioni.innerHTML;
         });
 
-        // erogazione
+        // Erogazione
         document.getElementById('bottone-saluta').addEventListener('click', function() {
             let codice = document.getElementById('input-nome').value.toUpperCase();
             let prezzo = 0;
@@ -220,12 +220,13 @@
         });
 
         // per prelevare il resto o il prodotto dal vano di ritiro
-        document.getElementById('vano-ritiro1').addEventListener('mouseenter', function() {
-            if(vanoRitiro1.style.backgroundColor === 'blue' || vanoRitiro1.style.backgroundColor === 'green' || vanoRitiro1.style.backgroundColor === 'red') {
+        vanoRitiro1.addEventListener('mouseenter', function() {
+            if(vanoRitiro1.style.backgroundColor !== '') {
                 vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#111111";
             }
         });
+
 
         // riposta il vano allo stile iniziale 
         document.getElementById('vano-ritiro1').addEventListener('mouseleave', function() {
@@ -234,7 +235,7 @@
             
         });
 
-        // resto
+        // Resto
         document.getElementById('bottone-resto').addEventListener('click', function() {
             if (credito > 0) {
                 logOperazioni.innerHTML = "Erogazione resto<br>" + logOperazioni.innerHTML;
