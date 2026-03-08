@@ -7,21 +7,26 @@
     
         body {
             text-align: center;
+            /* display: flex; trasforma il contenitore in un flexbox per allineare facilmente gli elementi */
             display: flex;
+            /* flex-direction: column; dispone gli elementi uno sotto l'altro in verticale */
             flex-direction: column;   
             justify-content: center;
             align-items: center;         
             font-family: Arial, sans-serif;
+            /* min-height: 100vh; l'elemento occupa almeno l'altezza totale della finestra del browser */
             min-height: 100vh;
         }
 
         h1{
             margin: 20px;
+            /* margin: spazio ESTERNO intorno all'elemento */  
         }
 
         hr {
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 40px;   
+            /* margin-bottom: spazio sotto l'elemento */
         }
         
         .disstributore {
@@ -30,6 +35,7 @@
             height: 800px;
             background-color: #ff1900;
             padding: 30px;
+            /* padding: 30px; spazio INTERNO ai bordi dell'elemento (tutti i lati) */
             border: 5px solid black;
         }
 
@@ -39,6 +45,7 @@
             background-color: lightslategray;
             padding: 20px;
             border: 10px solid black;
+            /* border-radius: 10px; arrotonda gli angoli del riquadro di 10px */
             border-radius: 10px;
             display: flex;
             flex-direction: column;
@@ -47,7 +54,9 @@
         .griglia-prodotti {
             display: grid;
             gap: 15px;
+            /* gap: 15px; spazio tra gli elementi della griglia (righe e colonne) */
             margin-top: 30px;
+            /* margin-top: spazio SOPRA l'elemento */
         }
 
         .prodotto {
@@ -59,6 +68,7 @@
             padding: 10px;
             text-align: center;
             border-radius: 25px;
+            /* font-weight: bold; rende il testo in grassetto */
             font-weight: bold;
             display: flex;
             justify-content: center;
@@ -82,6 +92,7 @@
             border: 3px solid white;
             margin-bottom: 20px;
             text-align: center;
+            /* line-height: 60px; altezza della riga, utile per centrare verticalmente il testo */
             line-height: 60px;
         }
 
@@ -92,6 +103,7 @@
             padding-left: 10px;
             font-size: 16px;
             border-radius: 5px;
+            /* border: none; rimuove il bordo dell'elemento */
             border: none;
         }
 
@@ -102,7 +114,9 @@
             background-color: #f1c40f;
             border: none;
             border-radius: 5px;
+            /* font-weight: bold; rende il testo in grassetto */
             font-weight: bold;
+            /* cursor: pointer; quando passi sopra l'elemento con il mouse, il cursore diventa la manina */
             cursor: pointer;
             font-size: 14px;
         }
@@ -118,6 +132,7 @@
             align-items: center;
             color: white;
             font-size: 20px;
+            /* font-weight: bold; rende il testo in grassetto */
             font-weight: bold;
         }
 
@@ -134,6 +149,7 @@
             border: 3px solid white;
             margin-bottom: 20px;
             text-align: center;
+            /* line-height: 60px; altezza della riga, utile per centrare verticalmente il testo */
             line-height: 60px;
         }
 
@@ -175,9 +191,10 @@
         </div>
     </div>
 
-<footer class="footer" style="margin-top: 40px; color: black; background-color: grey; padding: 20px; width: 100%; text-align: center;">
-    © 2025 - Tutti i diritti riservati
-</footer>
+    <!-- footer: sezione finale della pagina (di solito informazioni di chiusura, crediti, ecc.) -->
+    <footer class="footer" style="margin-top: 40px; color: black; background-color: grey; padding: 20px; width: 100%; text-align: center;">
+        © 2025 - Tutti i diritti riservati
+    </footer>
 
     <script>
         let credito = 0;
@@ -186,12 +203,15 @@
         const vanoRitiro1 = document.getElementById('vano-ritiro1');
 
         function aggiornaDisplay() {
+            /* toFixed(2): trasforma il numero in stringa con esattamente 2 decimali (es. 1 → "1.00") */
+            /* innerHTML: imposta il contenuto HTML (testo + eventuali tag) dentro l'elemento displayCredito */
             displayCredito.innerHTML = (Math.round(credito * 100) / 100).toFixed(2);
         }
 
         document.getElementById('aggiungi-btn1').addEventListener('click', function() {
             credito = Math.round((credito + 1) * 100) / 100;
             aggiornaDisplay();
+            /* innerHTML: imposta il contenuto HTML (testo + eventuali tag) dentro l'elemento Operazioni */
             Operazioni.innerHTML = "Hai inserito 1€<br>" + Operazioni.innerHTML;
         });
 
@@ -202,6 +222,8 @@
         });
 
         document.getElementById('bottone-saluta').addEventListener('click', function() {
+            /* .value: prende il testo inserito nella casella di input */
+            /* .toUpperCase(): converte tutto il testo in maiuscolo (es. "a1" → "A1") */
             let codice = document.getElementById('input-nome').value.toUpperCase();
             let prezzo = 0;
 
