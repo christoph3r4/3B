@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;         
             font-family: Arial, sans-serif;
+            min-height: 100vh;
         }
 
         h1{
@@ -23,7 +24,7 @@
             margin-bottom: 40px;
         }
         
-        .vending-machine {
+        .disstributore {
             display: flex;
             width: 600px;
             height: 800px;
@@ -120,7 +121,7 @@
             font-weight: bold;
         }
 
-        .log-operazioni {
+        .operazioni {
             overflow-y: auto;
             width: 290px;
             height: 250px;
@@ -142,7 +143,7 @@
     <h1>PROGETTO DI GRUPPO - DISTRIBUTORE AUTOMATICO</h1>
     <hr>
    
-    <div class="vending-machine">
+    <div class="disstributore">
         <div class="pancia">
             <h2 style="color:white; text-align:center; margin:0px;">DISTRIBUTORE</h2>
             <div class="griglia-prodotti">
@@ -168,7 +169,7 @@
             <button id="bottone-saluta" style="background-color: blue; color: white;">EROGA</button>
             <button id="bottone-resto" style="background-color: green; color: white;">$RESTO$</button>
 
-            <div class="log-operazioni" id="output-tabellina">
+            <div class="operazioni" id="output-tabellina">
                 SISTEMA PRONTO...
             </div>
         </div>
@@ -182,7 +183,7 @@
         // 🔹 Il tuo JavaScript rimane identico
         let credito = 0;
         const displayCredito = document.getElementById('livello');
-        const logOperazioni = document.getElementById('output-tabellina');
+        const Operazioni = document.getElementById('output-tabellina');
         const vanoRitiro1 = document.getElementById('vano-ritiro1');
 
         function aggiornaDisplay() {
@@ -192,13 +193,13 @@
         document.getElementById('aggiungi-btn1').addEventListener('click', function() {
             credito = Math.round((credito + 1) * 100) / 100;
             aggiornaDisplay();
-            logOperazioni.innerHTML = "Hai inserito 1€<br>" + logOperazioni.innerHTML;
+            Operazioni.innerHTML = "Hai inserito 1€<br>" + Operazioni.innerHTML;
         });
 
         document.getElementById('aggiungi-btn2').addEventListener('click', function() {
             credito = Math.round((credito + 0.50) * 100) / 100;
             aggiornaDisplay();
-            logOperazioni.innerHTML = "Hai inserito 0.50€<br>" + logOperazioni.innerHTML;
+            Operazioni.innerHTML = "Hai inserito 0.50€<br>" + Operazioni.innerHTML;
         });
 
         document.getElementById('bottone-saluta').addEventListener('click', function() {
@@ -210,7 +211,7 @@
             else if (codice === "A3") { prezzo = 1.5; }
             else if (codice === "A4") { prezzo = 2.5; }
             else {
-                logOperazioni.innerHTML = "CODICE ERRATO!<br>" + logOperazioni.innerHTML;
+                Operazioni.innerHTML = "CODICE ERRATO!<br>" + Operazioni.innerHTML;
                 return;
             }
 
@@ -219,9 +220,9 @@
                 aggiornaDisplay();
                 vanoRitiro1.innerHTML = "RITIRA QUI: " + codice;
                 vanoRitiro1.style.backgroundColor = "#0000ff";
-                logOperazioni.innerHTML = "EROGATO " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + logOperazioni.innerHTML;
+                Operazioni.innerHTML = "RITIRA QUI " + codice + " (-" + prezzo.toFixed(2) + "€)<br>" + Operazioni.innerHTML;
             } else {
-                logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
+                Operazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + Operazioni.innerHTML;
                 vanoRitiro1.style.backgroundColor = "#c0392b";
             }
             
@@ -242,13 +243,13 @@
 
         document.getElementById('bottone-resto').addEventListener('click', function() {
             if (credito > 0) {
-                logOperazioni.innerHTML = "Erogazione resto<br>" + logOperazioni.innerHTML;
+                Operazioni.innerHTML = "Erogazione resto<br>" + Operazioni.innerHTML;
                 credito = 0;
                 aggiornaDisplay();
                 vanoRitiro1.innerHTML = "RITIRA QUI";
                 vanoRitiro1.style.backgroundColor = "#27ae60";
             } else {
-                logOperazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + logOperazioni.innerHTML;
+                Operazioni.innerHTML = "SOLDI INSUFFICIENTI!<br>" + Operazioni.innerHTML;
                 vanoRitiro1.style.backgroundColor = "#c0392b";
             }
         });
